@@ -21,24 +21,50 @@
 </head>
 <body>
     <div th:replace="~{nav :: nav}">...</div>
-    <button id="recordButton" type="button" class="btn btn-success" onclick="toggleRecording()">Start Recording</button>
-    <button id="saveButton" type="button" class="btn btn-success" onclick="saveRecording()">Download</button>
+    <div class="container mt-4">
+        <div class="d-flex justify-content-center mb-3">
+            <button id="recordButton" type="button" class="btn btn-success me-2" onclick="toggleRecording()">
+                🎙️ Start Recording
+            </button>
+            <button id="saveButton" type="button" class="btn btn-outline-success" onclick="saveRecording()">
+                💾 Download
+            </button>
+        </div>
 
-    <button type="button" class="btn btn-primary" onclick="playSound(1)">C4</button>
-    <button type="button" class="btn btn-secondary" onclick="playSound(2)">E4</button>
-    <button type="button" class="btn btn-danger" onclick="playSound(3)">G4</button>
-    <button type="button" class="btn btn-warning" onclick="playSound(4)">B4</button>
-<!--    <h1>Music Composer</h1>-->
-<!--    <div class="button-grid">-->
-<!--        <button class="sound-button" onclick="playSound(1)">Sound 1</button>-->
-<!--        <button class="sound-button" onclick="playSound(2)">Sound 2</button>-->
-<!--        <button class="sound-button" onclick="playSound(3)">Sound 3</button>-->
-<!--        <button class="sound-button" onclick="playSound(4)">Sound 4</button>-->
-<!--    </div>-->
-<!--    <button id="recordButton" class="record-button" onclick="toggleRecording()">Start Recording</button>-->
-<!--    <div id="downloadSection" style="display: none; margin-top: 20px;">-->
-<!--        <button id="saveButton" class="record-button" onclick="saveRecording()">Save Recording</button>-->
-<!--    </div>-->
+        <div class="d-flex justify-content-between gap-4 mb-4">
+            <button type="button" class="btn btn-warning" onclick="playSound(1)">
+                🎵 C4
+            </button>
+            <button type="button" class="btn btn-warning" onclick="playSound(2)">
+                🎵 E4
+            </button>
+            <button type="button" class="btn btn-warning" onclick="playSound(3)">
+                🎵 G4
+            </button>
+            <button type="button" class="btn btn-warning" onclick="playSound(4)">
+                🎵 B4
+            </button>
+
+            <button type="button" class="btn btn-warning" onclick="playSound(5)">
+                🎵 B2
+            </button>
+
+            <button type="button" class="btn btn-warning" onclick="playSound(6)">
+                🎵 A4
+            </button>
+
+            <button type="button" class="btn btn-warning" onclick="playSound(7)">
+                🎵 F5
+            </button>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress" style="height: 30px;">
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" style="width: 0%;" id="progressBar">
+                Recording Progress
+            </div>
+        </div>
+    </div>
 
 <script>
     let isRecording = false;
@@ -54,7 +80,10 @@
         1: "C4",
         2: "E4",
         3: "G4",
-        4: "B4"
+        4: "B4",
+        5: "B2",
+        6: "A4",
+        7: "F5"
     };
 
     function playSound(buttonNum) {
