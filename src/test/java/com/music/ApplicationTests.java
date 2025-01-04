@@ -25,10 +25,47 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.MvcResult;
 
 @SpringBootTest
+@AutoConfigureMockMvc
 class ApplicationTests {
 
-	@Test
-	void contextLoads() {
+	@Autowired
+	private MockMvc mockMvc;
+
+	@Mock
+	private MusicTrackRepository musicTrackRepository;
+
+	@InjectMocks
+	private HomeController musicTrackController;
+
+	private MockHttpSession session;
+
+	@BeforeEach
+	void setup() throws Exception {
+		musicTrackRepository.deleteAll();
+		MvcResult loginResult = mockMvc.perform(post("/login")
+						.param("username", "user")
+						.param("password", "12345")
+				)
+				.andExpect(status().is3xxRedirection())
+				.andExpect(redirectedUrl("/"))
+				.andReturn();
+
+		session = (MockHttpSession) loginResult.getRequest().getSession();
 	}
 
+	@Test
+	void downloadTrackNotFoundUnitTest() {
+		Long trackId = 1L;
+		when(musicTrackRepository.findById(trackId)).thenReturn(Optional.empty());
+
+		ResponseEntity<byte[]> response = musicTrackController.downloadTrack(trackId);
+
+		assertEquals(404,response.getStatusCodeValue());
+	}
+
+	@Test
+	void downloadTrackNotFoundIntegrationTest() throws Exception {
+		mockMvc.perform(get("/download/999").session(session))
+				.andExpect(status().isNotFound());
+	}
 }
