@@ -3,3 +3,9 @@ spring:
     active: h2
   application:
     name: music_composer
+  kafka:
+    bootstrap-servers: localhost:9092
+
+kafka:
+  topic:
+    tracks: music-tracks

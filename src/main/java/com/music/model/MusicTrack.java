@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 @Entity
 @Data
@@ -19,6 +20,16 @@ public class MusicTrack {
     @Lob
     @Column(name = "mp4_data")
     private byte[] mp4Data;
+
+    @Override
+    public String toString() {
+        return "MusicTrack{" +
+                "id=" + id +
+                ", trackData='" + trackData + '\'' +
+                ", mp4Data=" + Arrays.toString(mp4Data) +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
