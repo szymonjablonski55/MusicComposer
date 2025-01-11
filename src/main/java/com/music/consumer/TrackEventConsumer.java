@@ -9,6 +9,6 @@ public class TrackEventConsumer {
 
     @KafkaListener(topics = "${kafka.topic.tracks}", groupId = "music-group")
     public void listen(TrackEvent event) {
-        System.out.println("TrackEventConsumer: " + event.getTrackId());
+        System.out.println("TrackEventConsumer -> : " + event.getTrackId());
     }
 }
